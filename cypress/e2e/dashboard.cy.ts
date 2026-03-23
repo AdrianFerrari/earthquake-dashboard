@@ -40,14 +40,14 @@ describe('Dashboard Page', () => {
     });
 
     it('should reload earthquakes when Apply Filters is clicked', () => {
-      cy.intercept('GET', '**/earthquakes', { fixture: 'earthquakes' }).as('getEarthquakesFiltered');
+      cy.intercept('GET', '**/earthquakes*', { fixture: 'earthquakes' }).as('getEarthquakesFiltered');
       cy.get('#minmag').clear().type('5');
       cy.get('button[type="submit"]').click();
       cy.wait('@getEarthquakesFiltered').its('request.url').should('include', 'minmagnitude=5');
     });
 
     it('should reset filters when Reset is clicked', () => {
-      cy.intercept('GET', '**/earthquakes', { fixture: 'earthquakes' }).as('getEarthquakesReset');
+      cy.intercept('GET', '**/earthquakes*', { fixture: 'earthquakes' }).as('getEarthquakesReset');
       cy.get('#minmag').clear().type('5');
       cy.get('button[type="button"]').contains('Reset').click();
       cy.wait('@getEarthquakesReset');

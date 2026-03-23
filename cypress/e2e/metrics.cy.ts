@@ -32,9 +32,9 @@ describe('Metrics Page', () => {
   });
 
   it('should reload metrics when filters change', () => {
-    cy.interceptMetrics();
+    cy.intercept('GET', '**/metrics*', { fixture: 'metrics' }).as('getMetricsFiltered');
     cy.get('#minmag').clear().type('4');
     cy.get('button[type="submit"]').click();
-    cy.wait('@getMetrics').its('request.url').should('include', 'minmagnitude=4');
+    cy.wait('@getMetricsFiltered').its('request.url').should('include', 'minmagnitude=4');
   });
 });
