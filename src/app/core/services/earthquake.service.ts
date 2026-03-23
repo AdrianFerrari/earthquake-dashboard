@@ -2,11 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EarthquakeMetrics, EarthquakeQuery, EarthquakeSummary } from '../models/earthquake.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class EarthquakeService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = environment.apiUrl;
 
   getEarthquakes(query: EarthquakeQuery = {}): Observable<EarthquakeSummary[]> {
     const params = this.buildParams(query);
